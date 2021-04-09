@@ -12,17 +12,23 @@ public class BaseClass {
     private WebElement webElement;
     private Robot robot;
 
+    final String baseURL = "https://www.google.com/";
+    final By searchStringLocator = By.cssSelector("input[title=\"Поиск\"]");
+    final By inputCalculatorLocator = By.id("cwos");
+    final By mapStringLocator = By.cssSelector("span[jsname=\"ubtiRe\"]");
+    final String searchCalc = "калькулятор\n";
+
     @BeforeMethod
     public void setup() throws AWTException {
         System.setProperty("webdriver.chrome.driver", "src/test/chromedriver.exe");
         driver = new ChromeDriver();
-        driver.get("https://www.google.com/");
+        driver.get(baseURL);
         driver.manage().window().maximize();
-        driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
-        WebElement webElement = driver.findElement(By.cssSelector("input[title=\"Поиск\"]"));
-        webElement.sendKeys("калькулятор\n");
-        driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
-        webElement = driver.findElement(By.id("cwos"));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebElement webElement = driver.findElement(searchStringLocator);
+        webElement.sendKeys(searchCalc);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webElement = driver.findElement(inputCalculatorLocator);
         webElement.click();
         robot = new Robot();
     }
@@ -35,30 +41,30 @@ public class BaseClass {
     @Test
     public void test1(){
         input("(1 + 2) × 3 - 40 ÷ 5 =");
-        webElement = driver.findElement(By.id("cwos"));
+        webElement = driver.findElement(inputCalculatorLocator);
         Assert.assertEquals(webElement.getText(), "1");
 
-        webElement = driver.findElement(By.cssSelector("span[jsname=\"ubtiRe\"]"));
+        webElement = driver.findElement(mapStringLocator);
         Assert.assertEquals(webElement.getText(), "(1 + 2) × 3 - 40 ÷ 5 =");
     }
 
     @Test
     public void test2(){
         input("6 ÷ 0 =");
-        webElement = driver.findElement(By.id("cwos"));
+        webElement = driver.findElement(inputCalculatorLocator);
         Assert.assertEquals(webElement.getText(), "Infinity");
 
-        webElement = driver.findElement(By.cssSelector("span[jsname=\"ubtiRe\"]"));
+        webElement = driver.findElement(mapStringLocator);
         Assert.assertEquals(webElement.getText(), "6 ÷ 0 =");
     }
 
     @Test
     public void test3(){
         input("sin =");
-        webElement = driver.findElement(By.id("cwos"));
+        webElement = driver.findElement(inputCalculatorLocator);
         Assert.assertEquals(webElement.getText(), "Error");
 
-        webElement = driver.findElement(By.cssSelector("span[jsname=\"ubtiRe\"]"));
+        webElement = driver.findElement(mapStringLocator);
         Assert.assertEquals(webElement.getText(), "sin() =");
     }
 
