@@ -4,31 +4,27 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.concurrent.TimeUnit;
-
 public class LoginPage {
 
-    WebDriver driver;
+    private WebDriver driver;
 
-    @FindBy(css = "input[type=\"email\"]")
-    WebElement Login;
+    @FindBy(css = "input[type='email']")
+    private WebElement login;
 
-    @FindBy(css  = "input[name=\"password\"]")
-    WebElement Password;
+    @FindBy(css = "input[name='password']")
+    private WebElement password;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(driver,this);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        PageFactory.initElements(driver, this);
     }
 
-
     public void inputLogin(String userLogin) {
-        Login.sendKeys(userLogin + Keys.ENTER);
+        login.sendKeys(userLogin + Keys.ENTER);
     }
 
     public void inputPassword(String userPassword) {
-        Password.sendKeys(userPassword + Keys.ENTER);
+        password.sendKeys(userPassword + Keys.ENTER);
     }
 
 }

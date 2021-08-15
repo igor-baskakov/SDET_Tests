@@ -4,26 +4,26 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.concurrent.TimeUnit;
+
 public class TestMail {
 
     private WebDriver driver;
-    LoginPage loginPage;
-    InboxPage inboxPage;
-    int countOfMail;
+    private LoginPage loginPage;
+    private InboxPage inboxPage;
 
-    final private String userMailProvider = "gmail.com";
-    final private String userLogin = "18276354test";
+    final private String userMail = "18276354test@gmail.com";
+    final private String recipientOfMail = "18276354test@gmail.com";
     final private String userPassword = "!!CyjgSDb!#eayx7";
     final private String baseURL = "https://mail.google.com/mail/u/0/#inbox";
-    final private String subjOfMail = "Simbirsoft Тестовое задание";
-    final private String surname = "Баскаков";
-
+    final private String filterOfSearch = "in:inbox subject:Simbirsoft Тестовое задание ";
+    final private String stringForSend = "Simbirsoft Тестовое задание. Баскаков";
 
     @BeforeTest
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "src/test/chromedriver.exe");
         driver = new ChromeDriver();
-
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         driver.get(baseURL);
         driver.manage().window().maximize();
         loginPage = new LoginPage(driver);
@@ -36,18 +36,10 @@ public class TestMail {
     }
 
     @Test
-    public void mail() throws InterruptedException {
-
-        loginPage.inputLogin(userLogin);
-
+    public void mail() {
+        loginPage.inputLogin(userMail);
         loginPage.inputPassword(userPassword);
-
-        inboxPage.inputSearchSubj(subjOfMail);
-
-        countOfMail = inboxPage.countOfMail();
-
-        inboxPage.sendNewMail(countOfMail, subjOfMail, surname, userMailProvider);
-
+        inboxPage.inputSearchSubj(filterOfSearch);
+        inboxPage.sendNewMail(recipientOfMail, stringForSend);
     }
-
 }
