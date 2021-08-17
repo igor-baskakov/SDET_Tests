@@ -1,3 +1,4 @@
+import io.qameta.allure.Step;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,7 @@ public class InboxPage {
     @FindBy(css = "div[gh='tm'] span[class='ts']:last-child")
     private WebElement countOfSearchMail;
 
-    @FindBy(css = "div[jscontroller='eIu7Db']")
+    @FindBy(css = "div[class='T-I T-I-KE L3']")
     private WebElement newMailButton;
 
     @FindBy(css = "textarea[aria-label='Кому']")
@@ -37,14 +38,17 @@ public class InboxPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step
     public void inputSearchSubj(String subjOfMail) {
         searchStringMail.sendKeys("subject:" + subjOfMail + Keys.ENTER);
     }
 
+    @Step
     public void clickNewMailButton() {
         newMailButton.click();
     }
 
+    @Step
     public void sendNewMail(String recipientOfMail, String stringForSend) {
         clickNewMailButton();
         recipientMail.sendKeys(recipientOfMail);
