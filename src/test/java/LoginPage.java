@@ -7,7 +7,7 @@ import io.qameta.allure.Step;
 
 public class LoginPage {
 
-    private WebDriver driver;
+    public WebDriver driver;
 
     @FindBy(css = "input[type='email']")
     private WebElement login;

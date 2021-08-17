@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class InboxPage {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    public WebDriver driver;
+    public WebDriverWait wait;
 
     @FindBy(css = "input[placeholder='Поиск в почте']")
     private WebElement searchStringMail;
@@ -18,7 +18,7 @@ public class InboxPage {
     @FindBy(css = "div[gh='tm'] span[class='ts']:last-child")
     private WebElement countOfSearchMail;
 
-    @FindBy(css = "div[class='T-I T-I-KE L3']")
+    @FindBy(css = "div[gh='cm']")
     private WebElement newMailButton;
 
     @FindBy(css = "textarea[aria-label='Кому']")

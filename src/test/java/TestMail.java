@@ -1,27 +1,25 @@
-import bsh.Capabilities;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+//import bsh.Capabilities;
+//import org.openqa.selenium.Platform;
+//import org.openqa.selenium.chrome.ChromeOptions;
+//import org.openqa.selenium.remote.DesiredCapabilities;
+//import org.openqa.selenium.remote.RemoteWebDriver;
+//import java.net.MalformedURLException;
+//import java.net.URL;
 
 public class TestMail {
 
     private WebDriver driver;
     private LoginPage loginPage;
     private InboxPage inboxPage;
-    DesiredCapabilities capabilities;
 
     Properties properties = new Properties();
     InputStream is = getClass().getResourceAsStream("app.properties");
